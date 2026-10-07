@@ -46,4 +46,4 @@ Power BI Desktop (Power Query, modelado, DAX) · Git y GitHub
 - `data/` datos de origen (no versionados)
 - `powerbi/` archivo del informe
 - `docs/` capturas y exportaciones
-- `notes/` decisiones de limpieza y diccionario de medidas
+- `notes/` decisiones de limpieza ([ver notas de limpieza](notes/limpieza.txt)) y diccionario de medidas
