@@ -24,6 +24,13 @@ Total de filas del dataset original: 1.067.371
 
 Nota: algunas categorías se solapan (por ejemplo, los ajustes de stock están
 dentro de Price <= 0), así que las filas no se pueden sumar sin más.
+## Nota sobre la lectura de decimales
+
+Al cargar el CSV con la configuración regional en español, Power BI
+interpretó el punto decimal como separador de miles (373.57 se leía como
+37.357). Se corrigió cargando `Price` con configuración regional en inglés.
+Las cifras de la auditoría basadas en comparaciones con 0 no se ven
+afectadas.
 
 ### Detalle de códigos que no son producto (StockCode)
 
@@ -44,11 +51,17 @@ dentro de Price <= 0), así que las filas no se pueden sumar sin más.
 Otros códigos detectados con el filtro por número de dígitos:
 
 - Probables pruebas o ajustes: `TEST001`, `TEST002`, `ADJUST2`, `m`.
-- Pendientes de revisar: `PADS`, `C3`, `SP1002`, `GIFT`, `CRUK`.
 - Los códigos `DCGS*` tienen formato de producto real (4 dígitos en vez de
   5), por lo que el filtro por número de dígitos los atrapó por error. Se
   tratan como producto salvo que la descripción indique lo contrario.
 - `m` y `M` hay que unificarlos pasando el código a mayúsculas.
+Otros códigos revisados:
+
+- `PADS` (19): "PADS TO MATCH ALL CUSHIONS", artículo real con precio simbólico (0,001) salvo una fila de 36,6. Se clasifica como Ajuste/Otros para no distorsionar el ranking de unidades.
+- `C3` (1) y `GIFT` (1): sin descripción, cantidad negativa y sin cliente. Ajuste/Otros.
+- `CRUK` (16): "CRUK Comission", cantidad -1 para un mismo cliente con precios distintos. Comisión, Ajuste/Otros.
+- `SP1002` (3): dos filas son un artículo real ("KID'S CHALKBOARD/EASEL"), se tratan como Producto.
+- Los códigos `DCGS*` tienen formato de producto real y se tratan como Producto.
 
 ## 2. Decisiones
 
@@ -67,3 +80,19 @@ Se decide quedarnos con los valores que nos sirven para responder a las pregunta
 | 9 | Unspecified, European Community | Mantener, pero excluir de rankings y mapas por país | No son países |
 
 
+## 3. Resultado de la limpieza
+
+| Paso | Filas |
+|---|---|
+| Dataset original | 1.067.371 |
+| Tras eliminar duplicados | 1.033.036 |
+| Excluidas (precio <= 0, ajustes, cantidades no válidas) | 6.020 |
+| **Tabla final** | **1.027.016** |
+
+Composición de la tabla final: 1.007.913 ventas y 19.103 devoluciones.
+La columna `TipoLinea` (Producto, Envío, Descuento, Ajuste/Otros) permite
+separar los ingresos de producto de los envíos y descuentos.
+
+Nota para el análisis: las devoluciones incluyen líneas que no son producto
+(envíos, descuentos, comisiones), por lo que en las medidas de devoluciones
+por producto hay que filtrar `TipoLinea = "Producto"`.
