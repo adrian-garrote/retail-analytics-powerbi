@@ -8,8 +8,17 @@ cuándo, a quién y qué se devuelve.
 
 ## Objetivo
 
-Responder a preguntas de negocio sobre ventas, productos, mercados y clientes
-a partir de datos transaccionales reales.
+Responder a preguntas de negocio sobre ventas, productos y mercados a partir de datos transaccionales reales.
+
+## Resumen del informe
+
+El informe tiene dos páginas.
+
+![Resumen de ventas](docs/pagina1-resumen.png)
+
+![Productos y países](docs/pagina2-productos-paises.png)
+
+También hay una versión en PDF: [`docs/informe.pdf`](docs/informe.pdf).
 
 ## Preguntas de negocio y conclusiones
 
@@ -52,16 +61,6 @@ La tasa pasa del 2,54% en 2010 al 4,84% en 2011, pero el aumento no refleja más
 - Análisis de clientes (quiénes son los mejores y cuánto concentran), que no se ha hecho.
 - Comparar los mismos meses entre años.
 - Revisar si hay más cancelaciones de pedidos grandes con el mismo patrón.
-
-## Resumen del informe
-
-El informe tiene dos páginas.
-
-![Resumen de ventas](docs/pagina1-resumen.png)
-
-![Productos y países](docs/pagina2-productos-paises.png)
-
-También hay una versión en PDF: [`docs/informe.pdf`](docs/informe.pdf).
 
 ## Datos
 
